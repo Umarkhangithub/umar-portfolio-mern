@@ -6,7 +6,6 @@ import {
 } from "../../../../features/skills/skillsSlice";
 import { Trash, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import LoaderComponents from "../../../../components/UI/Loader/LoaderComponents";
 import ProjectListSkeleton from "../../../../components/UI/skeleton/ProjectListSkeleton";
 
 

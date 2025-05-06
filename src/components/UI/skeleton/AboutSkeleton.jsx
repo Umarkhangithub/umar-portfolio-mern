@@ -36,7 +36,7 @@ const AboutSkeleton = () => {
 
         {/* Button Skeletons */}
         <div className="flex gap-4 mt-4">
-          <SkeletonBlock width="w-32" height="h-10" />
+          {/* <SkeletonBlock width="w-32" height="h-10" /> */}
           <SkeletonBlock width="w-32" height="h-10" />
         </div>
       </div>

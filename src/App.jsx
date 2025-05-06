@@ -38,7 +38,7 @@ function App() {
   return (
     <Router>
       <LayoutComponents>
-        <Suspense fallback={<LoaderComponents />}>
+        <Suspense fallback={<LoaderComponents bgColor='bg-transparent' />}>
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<HomePage />} />

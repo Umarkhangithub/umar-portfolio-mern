@@ -49,7 +49,7 @@ const SkillsPage = () => {
 
         {error && <p className="text-red-500 text-center mb-6">Error: {error}</p>}
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {renderSkills()}
         </div>
       </section>

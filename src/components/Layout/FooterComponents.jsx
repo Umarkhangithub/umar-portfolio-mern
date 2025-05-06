@@ -48,7 +48,7 @@ const FooterComponents = () => {
 
       {/* Social Links Section */}
       <div className="mt-4 sm:mt-8 flex justify-center">
-        <SocialLinksPage color='bg-[#BDC3C7]' />
+        <SocialLinksPage color='bg-transparent' />
       </div>
 
       {/* Copyright Section */}

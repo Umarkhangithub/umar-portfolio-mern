@@ -23,8 +23,8 @@ const AvatarCard = ({ size = 'w-64 h-64' }) => {
 
   if (error) {
     return (
-      <div className="text-red-500 text-center">
-        <p>Failed to load avatar: {error}</p>
+      <div className="flex justify-center items-center">
+        <div className={`rounded-full bg-gray-200 animate-pulse ${size}`} />
       </div>
     );
   }

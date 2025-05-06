@@ -5,7 +5,9 @@ import authReducer from "../features/auth/authSlice";
 import contactReducer from "../features/contact/contactSlice"; 
 import skillsReducer from "../features/skills/skillsSlice";
 import servicesReducer from "../features/services/servicesSlice"; 
-import profileReducer from "../features/profile/profileSlice"
+import profileReducer from "../features/profile/profileSlice";
+
+const isDev = import.meta.env.VITE_NODE_ENV === "development";
 
 export const store = configureStore({
   reducer: {
@@ -13,9 +15,11 @@ export const store = configureStore({
     auth: authReducer,
     contact: contactReducer, 
     skills: skillsReducer, 
-    services: servicesReducer, // Add your services reducer here
+    services: servicesReducer,
     profile: profileReducer
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(logger), // add logger middleware
+  middleware: (getDefaultMiddleware) => {
+    const middleware = getDefaultMiddleware();
+    return isDev ? middleware.concat(logger) : middleware;
+  }
 });

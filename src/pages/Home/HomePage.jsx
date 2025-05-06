@@ -1,16 +1,21 @@
-import React, { lazy, Suspense } from 'react';
-import HeroPage from '../Hero/HeroPage';
+import React, { lazy, Suspense } from "react";
+import HeroPage from "../Hero/HeroPage";
+import AboutSkeleton from "../../components/UI/skeleton/AboutSkeleton";
+import ProjectCardSkeleton from "../../components/UI/skeleton/ProjectCardSkeleton";
+import SkillCardSkeleton from "../../components/UI/skeleton/SkillCardSkeleton";
+import ServiceSkeleton from "../../components/UI/skeleton/ServiceSkeleton";
+import ContactFormSkeleton from "../../components/UI/skeleton/ContactFormSkeleton";
 
 // Lazy-loaded components
-const AboutPage = lazy(() => import('../About/AboutPage'));
-const ProjectList = lazy(() => import('../Projects/ProjectPage'));
-const SkillsPage = lazy(() => import('../Skills/SkillsPage'));
-const ServicesPage = lazy(() => import('../Services/ServicesPage'));
-const ContactPage = lazy(() => import('../contact/ContactPage'));
+const AboutPage = lazy(() => import("../About/AboutPage"));
+const ProjectList = lazy(() => import("../Projects/ProjectPage"));
+const SkillsPage = lazy(() => import("../Skills/SkillsPage"));
+const ServicesPage = lazy(() => import("../Services/ServicesPage"));
+const ContactPage = lazy(() => import("../contact/ContactPage"));
 
-// Optional: You can define a simple fallback loader
-const FallbackLoader = () => (
-  <div className="w-full text-center py-10 text-white">Loading...</div>
+// Generic suspense wrapper
+const WithSuspense = ({ children, fallback }) => (
+  <Suspense fallback={fallback}>{children}</Suspense>
 );
 
 const HomePage = () => {
@@ -18,25 +23,25 @@ const HomePage = () => {
     <>
       <HeroPage />
 
-      <Suspense fallback={<FallbackLoader />}>
+      <WithSuspense fallback={<AboutSkeleton />}>
         <AboutPage />
-      </Suspense>
+      </WithSuspense>
 
-      <Suspense fallback={<FallbackLoader />}>
+      <WithSuspense fallback={<ProjectCardSkeleton />}>
         <ProjectList />
-      </Suspense>
+      </WithSuspense>
 
-      <Suspense fallback={<FallbackLoader />}>
+      <WithSuspense fallback={<SkillCardSkeleton />}>
         <SkillsPage />
-      </Suspense>
+      </WithSuspense>
 
-      <Suspense fallback={<FallbackLoader />}>
+      <WithSuspense fallback={<ServiceSkeleton />}>
         <ServicesPage />
-      </Suspense>
+      </WithSuspense>
 
-      <Suspense fallback={<FallbackLoader />}>
+      <WithSuspense fallback={<ContactFormSkeleton />}>
         <ContactPage />
-      </Suspense>
+      </WithSuspense>
     </>
   );
 };

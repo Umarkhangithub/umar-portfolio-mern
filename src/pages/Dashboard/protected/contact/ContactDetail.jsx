@@ -9,7 +9,6 @@ const ContactDetail = () => {
   const navigate = useNavigate();
 
   const { contact, loading, error } = useSelector((state) => state.contact);
-  console.log(contact, "contact detail");
 
   useEffect(() => {
     if (id) {

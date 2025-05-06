@@ -1,6 +1,10 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchResume } from '../../../features/profile/profileSlice';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchResume } from "../../../features/profile/profileSlice";
+
+const SkeletonBlock = ({ width = "w-full", height = "h-4" }) => (
+  <div className={`bg-gray-300 rounded-md animate-pulse ${width} ${height}`} />
+);
 
 const ResumeDownload = () => {
   const dispatch = useDispatch();
@@ -12,14 +16,12 @@ const ResumeDownload = () => {
 
   return (
     <div className="text-center">
-      {/* Loading State */}
-      {loading && <p className="text-gray-500">Loading resume...</p>}
-
+    
       {/* Error or No Resume Message */}
-      {error && <p className="text-red-500">{error}</p>}
-      
+      {error && <SkeletonBlock width="w-32" height="h-10" />}
+
       {/* Resume Link */}
-      {resume ? (
+      {resume && (
         <a
           href={resume}
           download="Mohammad_Umar_ME.pdf"
@@ -27,9 +29,8 @@ const ResumeDownload = () => {
         >
           Resume
         </a>
-      ) : (
-        !loading && <p className="text-red-500">No resume uploaded.</p>
-      )}
+      ) 
+    }
     </div>
   );
 };

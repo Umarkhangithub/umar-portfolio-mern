@@ -7,7 +7,6 @@ import {
 import Pagination from "../../../../components/UI/pagination/Pagination";
 import { Trash, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import LoaderComponents from "../../../../components/UI/Loader/LoaderComponents";
 import ProjectListSkeleton from "../../../../components/UI/skeleton/ProjectListSkeleton";
 
 // Memoize the TableRow to avoid re-renders for each contact row

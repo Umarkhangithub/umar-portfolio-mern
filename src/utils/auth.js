@@ -4,7 +4,6 @@ export const getAuthHeaders = () => {
   // Remove extra quotes if they exist
   const cleanedToken = token ? token.replace(/^"(.*)"$/, '$1') : null;
 
-  console.log(cleanedToken)
   if (!cleanedToken) {
     throw new Error("No token found, please login again.");
   }
