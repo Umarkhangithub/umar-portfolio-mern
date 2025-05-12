@@ -49,14 +49,12 @@ const ServiceDetail = () => {
               : "N/A"}
           </p>
 
-          {service.icon && (
-            <div className="mt-6 flex justify-center">
-              {/* Render icon if stored and mapped correctly */}
-              <p className="bg-gray-100 text-gray-800 px-4 py-2 rounded">
-                Icon: {service.icon}
-              </p>
-            </div>
-          )}
+       {service.icon && (
+  <p className="text-gray-600 mb-1 break-words whitespace-pre-wrap">
+    <strong>Icon:</strong> {service.icon}
+  </p>
+)}
+
         </div>
       )}
     </div>

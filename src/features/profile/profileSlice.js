@@ -8,7 +8,6 @@ const API_URL = `${import.meta.env.VITE_REACT_APP_BACKEND_API_URL}profile`;
 const initialState = {
 
   avatar: null,
-  profile: null,
   loading: false,
   error: null,
   message: null,
@@ -16,18 +15,6 @@ const initialState = {
   resume: null
 };
 
-// Fetch full profile
-export const fetchProfile = createAsyncThunk(
-  'profile/fetchProfile',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(`${API_URL}`);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response?.data?.message || error.message);
-    }
-  }
-);
 
 // Fetch avatar (optional use)
 export const fetchAvatar = createAsyncThunk(
@@ -42,20 +29,27 @@ export const fetchAvatar = createAsyncThunk(
   }
 );
 
-// Fetch resume (blob)
+// Fetch resume (as Blob and convert to Object URL)
 export const fetchResume = createAsyncThunk(
   'profile/fetchResume',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${API_URL}/resume/download`, {
+      const response = await axios.get(`${API_URL}/resume/download`, {
         responseType: 'blob',
       });
-      return URL.createObjectURL(new Blob([data]));
+
+      const fileBlob = new Blob([response.data], { type: response.headers['content-type'] });
+
+      const fileURL = URL.createObjectURL(fileBlob);
+      return fileURL;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || error.message);
+      return rejectWithValue(
+        error.response?.data?.message || error.message || 'Failed to fetch resume.'
+      );
     }
   }
 );
+
 
 // Fetch social links
 export const fetchSocialLinks = createAsyncThunk(
@@ -91,20 +85,7 @@ const profileSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // Fetch Profile
-      .addCase(fetchProfile.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchProfile.fulfilled, (state, action) => {
-        state.loading = false;
-        state.profile = action.payload.profile;
-      })
-      .addCase(fetchProfile.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
-
+      
       // Add Profile
       .addCase(addProfile.pending, (state) => {
         state.loading = true;

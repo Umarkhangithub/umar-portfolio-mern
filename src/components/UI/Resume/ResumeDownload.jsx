@@ -8,7 +8,7 @@ const SkeletonBlock = ({ width = "w-full", height = "h-4" }) => (
 
 const ResumeDownload = () => {
   const dispatch = useDispatch();
-  const { resume, loading, error } = useSelector((state) => state.profile);
+  const { resume, error } = useSelector((state) => state.profile);
 
   useEffect(() => {
     dispatch(fetchResume());
@@ -16,21 +16,19 @@ const ResumeDownload = () => {
 
   return (
     <div className="text-center">
-    
       {/* Error or No Resume Message */}
       {error && <SkeletonBlock width="w-32" height="h-10" />}
 
       {/* Resume Link */}
       {resume && (
         <a
-          href={resume}
-          download="Mohammad_Umar_ME.pdf"
+          href={resume?.url}
+          download="Mohammad_Umar_MERN.pdf"
           className="inline-block bg-[#00A8E8] text-white py-2 px-4 rounded-md shadow-md hover:bg-[#008FB3] transition-colors duration-300 ease-in-out"
         >
           Resume
         </a>
-      ) 
-    }
+      )}
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addSkill } from "../../../../features/skills/skillsSlice";
 import InputField from "../../../../components/UI/Input/InputField";
+import { Code, Link } from "lucide-react";
 
 const AddSkill = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const AddSkill = () => {
   });
 
   const levels = ["Beginner", "Intermediate", "Advanced"];
-  const categories = ["Frontend", "Backend", "Database", "Tools", "Other"];
+  const categories = ["Frontend", "Backend","Full Stack", "Database", "Tools", "Other"];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,7 +52,7 @@ const AddSkill = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            
+            icon={Code}
             required
             className="w-full border border-gray-300 rounded p-2"
           />
@@ -76,12 +77,13 @@ const AddSkill = () => {
         <div>
           <InputField
             label="Icon"
-            placeholder="Enter a lucide-icon name"
-            type="text"
+            placeholder="icon url"
+            type="url"
             name="icon"
             value={formData.icon}
             onChange={handleChange}
             required
+            icon={Link}
             
             className="w-full border border-gray-300 rounded p-2"
           />

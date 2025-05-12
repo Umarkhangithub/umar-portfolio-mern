@@ -1,28 +1,33 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchProfile } from "../../../../features/profile/profileSlice";
+import { fetchAvatar, fetchSocialLinks, fetchResume } from "../../../../features/profile/profileSlice";
 import ProfileSkeleton from "../../../../features/profile/ProfileSkeleton";
 
 const ProfileDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { profile, loading, error } = useSelector(
+  const {  loading, error, avatar, socialLinks, resume } = useSelector(
     (state) => ({
-      profile: state.profile.profile,
+      avatar: state.profile.avatar,
       loading: state.profile.loading,
       error: state.profile.error,
+      socialLinks: state.profile.socialLinks,
+      resume: state.profile.resume
     }),
     shallowEqual
   );
 
+
   // Memoize the fetchProfile function
   const fetchProfileData = useCallback(() => {
-    if (!profile) {
-      dispatch(fetchProfile());
+    if (!avatar) {
+      dispatch(fetchAvatar());
+      dispatch(fetchResume());
+      dispatch(fetchSocialLinks())
     }
-  }, [dispatch, profile]);
+  }, [dispatch, avatar]);
 
   // Fetch profile only if not already loaded
   useEffect(() => {
@@ -31,7 +36,7 @@ const ProfileDetail = () => {
 
   const handleAddProfile = () => navigate("/dashboard/profile/add");
 
-  const hasSocialLinks = profile?.socialLinks && Object.keys(profile.socialLinks).length > 0;
+  const hasSocialLinks = socialLinks && Object.keys(socialLinks).length > 0;
 
   return (
     <div className="min-h-screen bg-slate-100 p-6">
@@ -57,30 +62,30 @@ const ProfileDetail = () => {
       )}
 
       {/* Empty */}
-      {!loading && !error && !profile && (
+      {!loading && !error && (
         <p className="text-center text-gray-500">No profile data found.</p>
       )}
 
       {/* Profile Info */}
-      {!loading && profile && (
+      {!loading && avatar && (
         <div className="max-w-2xl mx-auto bg-white shadow rounded-lg p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
-            {profile.name || "No Name Provided"}
+            {"Mohd Umar" }
           </h2>
 
           {/* Avatar and Resume */}
           <div className="flex flex-col items-center gap-4 mb-6">
-            {profile.avatar?.url && (
+            {avatar?.url && (
               <img
-                src={profile.avatar.url}
+                src={avatar.url}
                 alt="Avatar"
                 className="w-32 h-32 rounded-full object-cover shadow"
               />
             )}
 
-            {profile.resume?.url && (
+            {resume?.url && (
               <a
-                href={profile.resume.url}
+                href={resume.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
@@ -94,7 +99,7 @@ const ProfileDetail = () => {
           {hasSocialLinks && (
             <div className="text-gray-700 space-y-2">
               <h3 className="font-semibold text-lg mb-1">Social Links</h3>
-              {Object.entries(profile.socialLinks).map(
+              {Object.entries(socialLinks).map(
                 ([platform, link]) =>
                   link && (
                     <p key={platform}>
@@ -113,13 +118,7 @@ const ProfileDetail = () => {
             </div>
           )}
 
-          {/* Created At */}
-          {profile.createdAt && (
-            <p className="text-gray-500 text-sm mt-6">
-              <strong>Joined on:</strong>{" "}
-              {new Date(profile.createdAt).toLocaleDateString()}
-            </p>
-          )}
+         
         </div>
       )}
     </div>

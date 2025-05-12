@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addService } from "../../../../features/services/servicesSlice";
 import InputField from "../../../../components/UI/Input/InputField";
+import { Cog, Link } from "lucide-react";
 
 const AddService = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error, message } = useSelector((state) => state.services);
+  const { loading,  message } = useSelector((state) => state.services);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -49,6 +50,7 @@ const AddService = () => {
             value={formData.title}
             onChange={handleChange}
             required
+            icon={Cog}
             className="w-full border border-gray-300 rounded p-2"
           />
         </div>
@@ -69,12 +71,13 @@ const AddService = () => {
         <div>
           <InputField
             label="Icon"
-            placeholder="Enter a lucide-icon name"
-            type="text"
+            placeholder="icon url"
+            type="url"
             name="icon"
             value={formData.icon}
             onChange={handleChange}
             required
+            icon={Link}
             className="w-full border border-gray-300 rounded p-2"
           />
         </div>

@@ -60,8 +60,9 @@ const SkillDetail = () => {
 
           {skill.icon && (
             <div className="mt-6 flex justify-center ">
-              <p className="bg-gray-100 text-gray-800 px-4 py-2 rounded shadow-sm overflow-scroll">
-                Icon: {skill.icon}
+               <p className="text-gray-600 mb-1 break-words whitespace-pre-wrap">
+
+                <strong>Icon:</strong> {skill.icon}
               </p>
             </div>
           )}
